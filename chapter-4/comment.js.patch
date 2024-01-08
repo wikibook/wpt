@@ -1,0 +1,26 @@
+diff --git a/chapter-4/comment.js b/chapter-4/comment.js
+index fe517d3..6124c8d 100644
+--- a/chapter-4/comment.js
++++ b/chapter-4/comment.js
+@@ -10,13 +10,18 @@ import { parseHTML } from "k6/html";
+ // url함수를 import
+ import { url } from "./config.js";
+ 
++// getAccount 関数を accounts.js から import
++import { getAccount } from "./accounts.js";
++
+ // 벤치마커가 실시하는 시나리오 함수
+ // 로그인 후 댓글 게시
+ export default function () {
+-  // /로그인에 계정 이름과 비밀번호 전송
++  // 무작위로 1개 계정 선택
++  const account = getAccount();
++  // /login 에 대해 전송
+   const login_res = http.post(url("/login"), {
+-    account_name: "terra",
+-    password: "terraterra",
++    account_name: account.account_name,
++    password: account.password,
+   });
+ 
+   // 응답 상태 코드가 200인지 확인
